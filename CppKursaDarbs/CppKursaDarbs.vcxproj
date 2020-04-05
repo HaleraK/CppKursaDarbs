@@ -76,6 +76,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <EnableModules>true</EnableModules>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -115,6 +117,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Add.cpp" />
+    <ClCompile Include="Change.cpp" />
+    <ClCompile Include="CheckForMistakes.cpp" />
+    <ClCompile Include="Del.cpp" />
+    <ClCompile Include="Drawing.cpp" />
+    <ClCompile Include="Help.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Print.cpp" />
+    <ClCompile Include="run.cpp" />
+    <ClCompile Include="SaveAndLoad.cpp" />
+    <ClCompile Include="Search.cpp" />
+    <ClCompile Include="TimsortDrawing.cpp" />
+    <ClCompile Include="TimsortUser.cpp" />
+    <ClCompile Include="User.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Add.h" />
+    <ClInclude Include="Change.h" />
+    <ClInclude Include="CheckForMistakes.h" />
+    <ClInclude Include="Del.h" />
+    <ClInclude Include="Drawing.h" />
+    <ClInclude Include="Help.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Print.h" />
+    <ClInclude Include="SaveAndLoad.h" />
+    <ClInclude Include="Search.h" />
+    <ClInclude Include="TimsortDrawing.h" />
+    <ClInclude Include="TimsortUser.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
