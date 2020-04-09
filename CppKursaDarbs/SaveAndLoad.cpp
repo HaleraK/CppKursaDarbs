@@ -37,7 +37,7 @@ void saveLoad() {
 
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Save/load menu\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << "\n";
 		std::cout << "1 Save\n";
 		std::cout << "2 Save and load\n";
 		std::cout << "3 Load without save\n";

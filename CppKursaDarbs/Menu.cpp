@@ -63,7 +63,7 @@ void mainMenu() {
 		returnToMenu() = false;
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Main menu\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << "\n";
 		std::cout << "1 Add new user/drawing\n";
 		std::cout << "2 Change user/drawing\n";
 		std::cout << "3 Delete user/drawing\n";
@@ -138,7 +138,7 @@ void mainMenu() {
 
 				std::cout << "------------------------------------------------\n";
 				std::cout << "Exit menu\n";
-				std::cout << "------------------------------------------------\n";
+				std::cout << "\n";
 				std::cout << "1 Exit with save\n";
 				std::cout << "2 Exit without save\n";
 				std::cout << "0 Return to main menu\n";

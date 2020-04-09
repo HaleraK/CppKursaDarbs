@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <sstream> 
+#include <iomanip>
 
 #include "User.h"
 #include "Drawing.h"
@@ -22,10 +23,12 @@ void print() {
 		if (returnToMenu()) { break; }
 
 		std::cout << "------------------------------------------------\n";
-		std::cout << "1 Print about one user\n";
-		std::cout << "2 Print about one drawing\n";
-		std::cout << "3 Print about users\n";
-		std::cout << "4 Print about drawings\n";
+		std::cout << "Print about\n";
+		std::cout << "\n";
+		std::cout << "1 One user\n";
+		std::cout << "2 One drawing\n";
+		std::cout << "3 Users\n";
+		std::cout << "4 Drawings\n";
 		std::cout << "0 Main menu\n";
 		std::cout << "------------------------------------------------\n";
 
@@ -106,7 +109,7 @@ void printUser() {
 
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Print informations about " << users()[i].getNick() << " user\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << "\n";
 		std::cout << "1 All\n";
 		std::cout << "2 Without login, pasword and about\n";
 		std::cout << "3 Only nick and users drawings\n";
@@ -186,7 +189,7 @@ void printDrawing() {
 
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Print informations about " << drawings()[i].getId() << " drawing\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << "\n";
 		std::cout << "1 All\n";
 		std::cout << "2 Without description\n";
 		std::cout << "3 Only user nick, title, id and file name\n";
@@ -243,7 +246,7 @@ void printUsers() {
 
 			std::cout << "------------------------------------------------\n";
 			std::cout << "Sort users by\n";
-			std::cout << "------------------------------------------------\n";
+			std::cout << "\n";
 			std::cout << "1 Without\n";
 			std::cout << "2 Name\n";
 			std::cout << "3 Surname\n";
@@ -318,7 +321,7 @@ void printUsers() {
 
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Print informations about users\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << "\n";
 		std::cout << "1 All\n";
 		std::cout << "2 Without login, pasword and about\n";
 		std::cout << "3 Only nick and users drawings\n";
@@ -375,7 +378,7 @@ void printDrawings() {
 
 			std::cout << "------------------------------------------------\n";
 			std::cout << "Sort drawings by\n";
-			std::cout << "------------------------------------------------\n";
+			std::cout << "\n";
 			std::cout << "1 Without\n";
 			std::cout << "2 Owner\n";
 			std::cout << "3 Drawing Id\n";
@@ -444,7 +447,7 @@ void printDrawings() {
 
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Print informations about drawings\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << "\n";
 		std::cout << "1 All\n";
 		std::cout << "2 Without description\n";
 		std::cout << "3 Only user nick, title, id and file name\n";
@@ -490,7 +493,7 @@ void printDrawings() {
 void outUser(int i, char type) {
 	std::cout << "------------------------------------------------\n";
 	std::cout << "User (" << users()[i].getNick() << "):\n";
-	std::cout << "------------------------------------------------\n";
+	std::cout << "\n";
 
 	if (type == 'a') {
 		std::cout << "NICK: " << users()[i].getNick() << "\n";
@@ -520,7 +523,7 @@ void outUser(int i, char type) {
 void outDrawing(int i, char type) {
 	std::cout << "------------------------------------------------\n";
 	std::cout << "Drawing (" << drawings()[i].getId() << "):\n";
-	std::cout << "------------------------------------------------\n";
+	std::cout << "\n";
 
 	if (type == 'a') {
 		std::cout << "TITLE: " << drawings()[i].getTitle() << "\n";
@@ -552,18 +555,43 @@ void outDrawing(int i, char type) {
 void tableUsers(char type, vector<int> elements) {
 	std::cout << "------------------------------------------------\n";
 	std::cout << "Table users\n";
-	std::cout << "------------------------------------------------\n";
+	std::cout << "\n";
 
 	int j = 0;
 
 	if (type == 'a') {
-		std::cout << "NICK\tNAME\tSURANME\tLOGIN\tPASSWORD\tDATE OF REGISTRATION\tABOUT\tdrawings()\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << std::setw(16) << std::left << "NICK"
+			<< std::setw(16) << "NAME"
+			<< std::setw(16) << "SURNAME"
+			<< std::setw(16) << "LOGIN"
+			<< std::setw(16) << "PASSWORD"
+			<< std::setw(16) << "DATE OF REG"
+			<< std::setw(32) << "ABOUT"
+			<< "DRAWINGS IDS"
+			<< std::endl;
+		std::cout << "\n";
 
 		if (elements[0] != -1) {
 			for (int i = 0; i < users().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << users()[i].getNick() << "\t" << users()[i].getName() << "\t" << users()[i].getSurname() << "\t" << users()[i].getLogin() << "\t" << users()[i].getPassword() << "\t" << users()[i].getDateOfReg() << "\t" << users()[i].getAbout() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+					std::cout << std::setw(16) << std::left << users()[i].getNick()
+						<< std::setw(16) << users()[i].getName()
+						<< std::setw(16) << users()[i].getSurname()
+						<< std::setw(16) << users()[i].getLogin()
+						<< std::setw(16) << users()[i].getPassword()
+						<< std::setw(16) << users()[i].getDateOfReg();
+					if (users()[i].getAbout().length() > 25) {
+						std::cout << std::setw(32) << users()[i].getAbout().substr(0, 25) + "...";
+					}
+					else {
+						std::cout << std::setw(32) << users()[i].getAbout();
+					}
+					if (users()[i].getDrawingIDs().length() > 25) {
+						std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25) + "...";
+					}
+					else  if (users()[i].getCountDrawingIDs() != 0) {
+						std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25);
+					}
 					std::cout << std::endl;
 					j++;
 				}
@@ -571,20 +599,51 @@ void tableUsers(char type, vector<int> elements) {
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < users().size(); i++) {
-				std::cout << users()[i].getNick() << "\t" << users()[i].getName() << "\t" << users()[i].getSurname() << "\t" << users()[i].getLogin() << "\t" << users()[i].getPassword() << "\t" << users()[i].getDateOfReg() << "\t" << users()[i].getAbout() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+				std::cout << std::setw(16) << std::left << users()[i].getNick()
+					<< std::setw(16) << users()[i].getName()
+					<< std::setw(16) << users()[i].getSurname()
+					<< std::setw(16) << users()[i].getLogin()
+					<< std::setw(16) << users()[i].getPassword()
+					<< std::setw(16) << users()[i].getDateOfReg();
+				if (users()[i].getAbout().length() > 25) {
+					std::cout << std::setw(32) << users()[i].getAbout().substr(0, 25) + "...";
+				}
+				else {
+					std::cout << std::setw(32) << users()[i].getAbout();
+				}
+				if (users()[i].getDrawingIDs().length() > 25) {
+					std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25) + "...";
+				}
+				else  if (users()[i].getCountDrawingIDs() != 0) {
+					std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25);
+				}
 				std::cout << std::endl;
 			}
 		}
 
 	}
 	if (type == 'm') {
-		std::cout << "NICK\tNAME\tSURANME\tDATE OF REGISTRATION\tdrawings()\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << std::setw(16) << std::left << "NICK"
+			<< std::setw(16) << "NAME"
+			<< std::setw(16) << "SURNAME"
+			<< std::setw(16) << "DATE OF REG"
+			<< "DRAWINGS IDS"
+			<< std::endl;
+		std::cout << "\n";
 
 		if (elements[0] != -1) {
 			for (int i = 0; i < users().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << users()[i].getNick() << "\t" << users()[i].getName() << "\t" << users()[i].getSurname() << "\t" << users()[i].getDateOfReg() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+					std::cout << std::setw(16) << std::left << users()[i].getNick()
+						<< std::setw(16) << users()[i].getName()
+						<< std::setw(16) << users()[i].getSurname()
+						<< std::setw(16) << users()[i].getDateOfReg();
+					if (users()[i].getDrawingIDs().length() > 25) {
+						std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25) + "...";
+					}
+					else  if (users()[i].getCountDrawingIDs() != 0) {
+						std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25);
+					}
 					std::cout << std::endl;
 					j++;
 				}
@@ -592,20 +651,37 @@ void tableUsers(char type, vector<int> elements) {
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < users().size(); i++) {
-				std::cout << users()[i].getNick() << "\t" << users()[i].getName() << "\t" << users()[i].getSurname() << "\t" << users()[i].getDateOfReg() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+				std::cout << std::setw(16) << std::left << users()[i].getNick()
+					<< std::setw(16) << users()[i].getName()
+					<< std::setw(16) << users()[i].getSurname()
+					<< std::setw(16) << users()[i].getDateOfReg();
+				if (users()[i].getDrawingIDs().length() > 25) {
+					std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25) + "...";
+				}
+				else  if (users()[i].getCountDrawingIDs() != 0) {
+					std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25);
+				}
 				std::cout << std::endl;
 			}
 		}
 
 	}
 	if (type == 's') {
-		std::cout << "NICK\tdrawings()\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << std::setw(16) << std::left << "NICK"
+			<< "DRAWINGS IDS"
+			<< std::endl;
+		std::cout << "\n";
 
 		if (elements[0] != -1) {
 			for (int i = 0; i < users().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << users()[i].getNick() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+					std::cout << std::setw(16) << std::left << users()[i].getNick();
+					if (users()[i].getDrawingIDs().length() > 25) {
+						std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25) + "...";
+					}
+					else  if (users()[i].getCountDrawingIDs() != 0) {
+						std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25);
+					}
 					std::cout << std::endl;
 					j++;
 				}
@@ -613,29 +689,59 @@ void tableUsers(char type, vector<int> elements) {
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < users().size(); i++) {
-				std::cout << users()[i].getNick() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+				std::cout << std::setw(16) << std::left << users()[i].getNick();
+				if (users()[i].getDrawingIDs().length() > 25) {
+					std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25) + "...";
+				}
+				else  if (users()[i].getCountDrawingIDs() != 0) {
+					std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25);
+				}
 				std::cout << std::endl;
 			}
 		}
 	}
+	std::cout << "------------------------------------------------\n";
 	
 }
 
 void tableDrawings(char type, vector<int> elements) {
 	std::cout << "------------------------------------------------\n";
 	std::cout << "Table drawings\n";
-	std::cout << "------------------------------------------------\n";
+	std::cout << "\n";
 
 	int j = 0;
 
 	if (type == 'a') {
-		std::cout << "TITLE\tOWNER\tID\tFILE NAME\tDATE AND TIME OF CREATION\tDESCRIPTION\tTAGS\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << std::setw(16) << std::left << "TITLE"
+			<< std::setw(16) << "OWNER"
+			<< std::setw(16) << "ID"
+			<< std::setw(16) << "FILE NAME"
+			<< std::setw(16) << "DATE AND TIME OF CREATION"
+			<< std::setw(32) << "DESCRIPTION"
+			<< "TAGS"
+			<< std::endl;
+		std::cout << "\n";
 
 		if (elements[0] != -1) {
 			for (int i = 0; i < drawings().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName() << "\t" << drawings()[i].getDateAndTimeOfAdd() << "\t" << drawings()[i].getDescription() << "\t" << "(" << drawings()[i].getCountTags() << ") " << drawings()[i].getTags();
+					std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+						<< std::setw(16) << drawings()[i].getUserNick()
+						<< std::setw(16) << drawings()[i].getId()
+						<< std::setw(16) << drawings()[i].getFileName()
+						<< std::setw(16) << drawings()[i].getDateAndTimeOfAdd();
+					if (users()[i].getAbout().length() > 25) {
+						std::cout << std::setw(32) << drawings()[i].getDescription().substr(0, 25) + "...";
+					}
+					else {
+						std::cout << std::setw(32) << drawings()[i].getDescription();
+					}
+					if (users()[i].getDrawingIDs().length() > 25) {
+						std::cout << "(" + to_string(drawings()[i].getCountTags()) + ") " + drawings()[i].getTags().substr(0, 25) + "...";
+					}
+					else  if (users()[i].getCountDrawingIDs() != 0) {
+						std::cout << "(" + to_string(drawings()[i].getCountTags()) + ") " + drawings()[i].getTags().substr(0, 25);
+					}
 					std::cout << std::endl;
 					j++;
 				}
@@ -643,20 +749,52 @@ void tableDrawings(char type, vector<int> elements) {
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < drawings().size(); i++) {
-				std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName() << "\t" << drawings()[i].getDateAndTimeOfAdd() << "\t" << drawings()[i].getDescription() << "\t" << "(" << drawings()[i].getCountTags() << ") " << drawings()[i].getTags();
+				std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+					<< std::setw(16) << drawings()[i].getUserNick()
+					<< std::setw(16) << drawings()[i].getId()
+					<< std::setw(16) << drawings()[i].getFileName()
+					<< std::setw(16) << drawings()[i].getDateAndTimeOfAdd();
+				if (users()[i].getAbout().length() > 25) {
+					std::cout << std::setw(32) << drawings()[i].getDescription().substr(0, 25) + "...";
+				}
+				else {
+					std::cout << std::setw(32) << drawings()[i].getDescription();
+				}
+				if (users()[i].getDrawingIDs().length() > 25) {
+					std::cout << "(" + to_string(drawings()[i].getCountTags()) + ") " + drawings()[i].getTags().substr(0, 25) + "...";
+				}
+				else  if (users()[i].getCountDrawingIDs() != 0) {
+					std::cout << "(" + to_string(drawings()[i].getCountTags()) + ") " + drawings()[i].getTags().substr(0, 25);
+				}
 				std::cout << std::endl;
 			}
 		}
 
 	}
 	if (type == 'm') {
-		std::cout << "TITLE\tOWNER\tID\tFILE NAME\tDATE AND TIME OF CREATION\tTAGS\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << std::setw(16) << std::left << "TITLE"
+			<< std::setw(16) << "OWNER"
+			<< std::setw(16) << "ID"
+			<< std::setw(16) << "FILE NAME"
+			<< std::setw(16) << "DATE AND TIME OF CREATION"
+			<< "TAGS"
+			<< std::endl;
+		std::cout << "\n";
 
 		if (elements[0] != -1) {
 			for (int i = 0; i < drawings().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName() << "\t" << drawings()[i].getDateAndTimeOfAdd() << "\t" << "(" << drawings()[i].getCountTags() << ") " << drawings()[i].getTags();
+					std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+						<< std::setw(16) << drawings()[i].getUserNick()
+						<< std::setw(16) << drawings()[i].getId()
+						<< std::setw(16) << drawings()[i].getFileName()
+						<< std::setw(16) << drawings()[i].getDateAndTimeOfAdd();
+					if (users()[i].getDrawingIDs().length() > 25) {
+						std::cout << "(" + to_string(drawings()[i].getCountTags()) + ") " + drawings()[i].getTags().substr(0, 25) + "...";
+					}
+					else  if (users()[i].getCountDrawingIDs() != 0) {
+						std::cout << "(" + to_string(drawings()[i].getCountTags()) + ") " + drawings()[i].getTags().substr(0, 25);
+					}
 					std::cout << std::endl;
 					j++;
 				}
@@ -664,31 +802,52 @@ void tableDrawings(char type, vector<int> elements) {
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < drawings().size(); i++) {
-				std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName() << "\t" << drawings()[i].getDateAndTimeOfAdd() << "\t" << "(" << drawings()[i].getCountTags() << ") " << drawings()[i].getTags();
+				std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+					<< std::setw(16) << drawings()[i].getUserNick()
+					<< std::setw(16) << drawings()[i].getId()
+					<< std::setw(16) << drawings()[i].getFileName()
+					<< std::setw(16) << drawings()[i].getDateAndTimeOfAdd();
+				if (users()[i].getDrawingIDs().length() > 25) {
+					std::cout << "(" + to_string(drawings()[i].getCountTags()) + ") " + drawings()[i].getTags().substr(0, 25) + "...";
+				}
+				else  if (users()[i].getCountDrawingIDs() != 0) {
+					std::cout << "(" + to_string(drawings()[i].getCountTags()) + ") " + drawings()[i].getTags().substr(0, 25);
+				}
 				std::cout << std::endl;
 			}
 		}
 
 	}
 	if (type == 's') {
-		std::cout << "TITLE\tOWNER\tID\tFILE NAME\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << std::setw(16) << std::left << "TITLE"
+			<< std::setw(16) << "OWNER"
+			<< std::setw(16) << "ID"
+			<< std::setw(16) << "FILE NAME"
+			<< std::endl;
+		std::cout << "\n";
 
 		if (elements[0] != -1) {
 			for (int i = 0; i < drawings().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName();
-					std::cout << std::endl;
+					std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+						<< std::setw(16) << drawings()[i].getUserNick()
+						<< std::setw(16) << drawings()[i].getId()
+						<< std::setw(16) << drawings()[i].getFileName()
+						<< std::endl;
 					j++;
 				}
 			}
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < drawings().size(); i++) {
-				std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName();
-				std::cout << std::endl;
+				std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+					<< std::setw(16) << drawings()[i].getUserNick()
+					<< std::setw(16) << drawings()[i].getId()
+					<< std::setw(16) << drawings()[i].getFileName()
+					<< std::endl;
 			}
 		}
 
 	}
+	std::cout << "------------------------------------------------\n";
 }

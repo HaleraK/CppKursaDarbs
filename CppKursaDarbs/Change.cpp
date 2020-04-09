@@ -22,8 +22,10 @@ void change() {
 		if (returnToMenu()) { break; }
 
 		std::cout << "------------------------------------------------\n";
-		std::cout << "1 Change user\n";
-		std::cout << "2 Change drawing\n";
+		std::cout << "1 Change\n";
+		std::cout << "\n";
+		std::cout << "1 User\n";
+		std::cout << "2 Drawing\n";
 		std::cout << "0 Main menu\n";
 		std::cout << "------------------------------------------------\n";
 
@@ -104,7 +106,7 @@ void changeUser() {
 
 			std::cout << "------------------------------------------------\n";
 			std::cout << "You can change:\n";
-			std::cout << "------------------------------------------------\n";
+			std::cout << "\n";
 			std::cout << "1 Name\n";
 			std::cout << "2 Surname\n";
 			std::cout << "3 Nick\n";
@@ -288,7 +290,7 @@ void changeDrawing() {
 
 		std::cout << "------------------------------------------------\n";
 		std::cout << "You can change:\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << "\n";
 		std::cout << "1 Title\n"; 
 		std::cout << "2 Owner\n";
 		std::cout << "3 Id\n";

@@ -20,8 +20,10 @@ void add() {
 		if (returnToMenu()) { break; }
 
 		std::cout << "------------------------------------------------\n";
-		std::cout << "1 Add new user\n";
-		std::cout << "2 Add new drawing\n";
+		std::cout << "Add new\n";
+		std::cout << "\n";
+		std::cout << "1 User\n";
+		std::cout << "2 Drawing\n";
 		std::cout << "0 Main menu\n";
 		std::cout << "------------------------------------------------\n";
 

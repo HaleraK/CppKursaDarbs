@@ -117,7 +117,7 @@ void search() {
 
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Search user/drawing\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << "\n";
 		std::cout << "1 Search user\n";
 		std::cout << "2 Search drawing\n";
 		std::cout << "0 Main menu\n";
@@ -166,7 +166,7 @@ void searchUser() {
 
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Search user by\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << "\n";
 		std::cout << "1 Nick\n";
 		std::cout << "2 Any parametr\n";
 		std::cout << "0 Main menu\n";
@@ -223,7 +223,7 @@ void searchDrawing() {
 
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Search drawing by\n";
-		std::cout << "------------------------------------------------\n";
+		std::cout << "\n";
 		std::cout << "1 Title\n";
 		std::cout << "2 User\n";
 		std::cout << "3 Full search\n";

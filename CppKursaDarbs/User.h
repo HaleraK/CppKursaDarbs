@@ -106,6 +106,4 @@ private:
 		return f;
 	}
 
-	//txt out
-
 };

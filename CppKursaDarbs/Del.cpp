@@ -20,8 +20,10 @@ void del() {
 		if (returnToMenu()) { break; }
 
 		std::cout << "------------------------------------------------\n";
-		std::cout << "1 Delete user\n";
-		std::cout << "2 Delete drawing\n";
+		std::cout << "1 Delete\n";
+		std::cout << "\n";
+		std::cout << "1 User\n";
+		std::cout << "2 Drawing\n";
 		std::cout << "0 Main menu\n";
 		std::cout << "------------------------------------------------\n";
 
