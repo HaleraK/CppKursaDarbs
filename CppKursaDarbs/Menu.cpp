@@ -57,6 +57,9 @@ void mainMenu() {
 	int numChoise;
 
 	while (true) {
+
+		system("cls");
+
 		returnToMenu() = false;
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Main menu\n";

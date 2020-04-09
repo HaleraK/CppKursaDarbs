@@ -4,6 +4,10 @@
 #include <iostream>
 #include <vector>
 
+#include <fstream>
+#include <iostream>
+#include <filesystem>
+
 using std::string;
 using std::vector;
 
@@ -67,9 +71,16 @@ public:
 	bool isDoubleTag(string tag);
 
 	string getTags();
+	string getTag(int i);
 
 	int getCountTags();
 
+	void serilization(string path);
+	void deserilization(const std::filesystem::directory_entry file);
+
+	string getParamName(string buffer);
+	bool isComment(string buffer);
+	string getParam(string buffer, int posStart);
 
 private:
 	string userNick;

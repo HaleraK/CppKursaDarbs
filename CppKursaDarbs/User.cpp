@@ -2,10 +2,15 @@
 #include <iostream>
 #include <vector>
 
+#include <fstream>
+#include <iostream>
+#include <filesystem>
+
 #include "User.h"
 
 using std::string;
 using std::vector;
+using namespace std;
 
 void User::constructor(string name, string surname, string nick, string login, string password, string dateOfReg) {
 
@@ -235,4 +240,175 @@ string User::getDrawingIDs() {
 
 int User::getCountDrawingIDs() {
 	return User::drawingIDs.size();
+}
+
+string User::getDrawingID(int i) {
+	return User::drawingIDs[i];
+};
+
+void User::serilization(string path) {
+
+	//#Структура файла User.u
+	//name{...}
+	//surname{...}
+	//nick{...}
+	//login{...}
+	//password{...}
+	//dateOfReg{...}
+	//about{...}
+	//drawingsIDs{{...}{...}{...}{...}{...} ... }
+
+	ofstream out(path + User::getNick() + ".u", ios_base::trunc | ios_base::out);
+
+	if (!out.is_open()) // если файл небыл открыт
+	{
+		return; 
+	}
+
+	out << "#User " << User::getNick() << endl;
+	out << "name{" << User::getName() << "}" << endl;
+	out << "surname{" << User::getSurname() << "}" << endl;
+	out << "nick{" << User::getNick() << "}" << endl;
+	out << "login{" << User::getLogin() << "}" << endl;
+	out << "password{" << User::getPassword() << "}" << endl;
+	out << "dateOfReg{" << User::getDateOfReg() << "}" << endl;
+	out << "about{" << User::getAbout() << "}" << endl;
+
+	out << "drawingIDs{";
+	for (int i = 0; i < User::getCountDrawingIDs(); i++) {
+		out << "{" << User::getDrawingID(i) << "}";
+	}
+	out << "}" << endl;
+
+	out.close();
+
+}
+
+void User::deserilization(const std::filesystem::directory_entry file) {
+
+	string buffer;
+	string paramType;
+	int posStart = 0;
+	vector<string> vecBuffer;
+
+	ifstream in(file, ios_base::in);
+
+	if (!in.is_open()) // если файл небыл открыт
+	{
+		return;
+	}
+
+	while (!in.eof()) {
+
+		getline(in , buffer);
+
+		if (User::isComment(buffer)) {
+			continue;
+		}
+		paramType = User::getParamName(buffer);
+
+		if (paramType == "{error}") {
+			continue;
+		}
+
+		if (paramType == "name") {
+			User::setName(User::getParam(buffer, posStart));
+		}
+		if (paramType == "surname") {
+			User::setSurname(User::getParam(buffer, posStart));
+		}
+		if (paramType == "nick") {
+			User::setNick(User::getParam(buffer, posStart));
+		}
+		if (paramType == "login") {
+			User::setLogin(User::getParam(buffer, posStart));
+		}
+		if (paramType == "password") {
+			User::setPassword(User::getParam(buffer, posStart));
+		}
+		if (paramType == "dateOfReg") {
+			User::setDateOfReg(User::getParam(buffer, posStart));
+		}
+		if (paramType == "about") {
+			User::setAbout(User::getParam(buffer, posStart));
+		}
+
+		if (paramType == "drawingIDs") {
+
+			posStart += paramType.length() + 1;
+
+			while (true) {
+
+				vecBuffer.push_back(User::getParam(buffer, posStart));
+				posStart += vecBuffer.back().length() + 1;
+
+				if ((posStart + 1) >= buffer.length()) {
+					break;
+				}
+
+			}
+			User::addDrawingIDs(vecBuffer);
+		}
+
+	}
+
+	in.close();
+
+}
+
+string User::getParamName(string buffer) {
+	string out;
+
+	if (buffer[0] == '{') {
+		return "";
+	}
+
+	for (int i = 0; i < buffer.length(); i++) {
+
+		if (buffer[i] == '{') {
+			return out;
+		}
+		out += buffer[i];
+
+	}
+
+	return "{error}";
+}
+
+bool User::isComment(string buffer) {
+	if (buffer[0] == '#') {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+string User::getParam(string buffer, int posStart) {
+	string out;
+	bool start = false;
+	bool end = false;
+
+	for (int i = posStart; i < buffer.length(); i++) {
+
+		if (start == true) {
+			if (buffer[i] == '}') {
+				end = true;
+				break;
+			}
+			out += buffer[i];
+		}
+		if (buffer[i] == '{') {
+			start = true;
+		}
+
+	}
+
+	if (start && end) {
+		return	out;
+	}
+	else {	
+		return "";
+	}
+
 }

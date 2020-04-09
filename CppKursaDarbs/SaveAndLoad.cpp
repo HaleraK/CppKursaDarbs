@@ -90,21 +90,11 @@ void save() {
 	string pathDrawings = "data/Drawings/";
 
 	for (int i = 0; i < users().size(); i++) {
-
-		ofstream out(pathUsers + users()[i].getNick() + ".u", ios::binary);
-		out.write((char*)&users()[i], sizeof(users()[i]));
-		//in.read((char*)S, sizeof(S));          //в случае с массивом можно и так
-		out.close();
-
+		users()[i].serilization(pathUsers);
 	}
 
 	for (int i = 0; i < drawings().size(); i++) {
-
-		ofstream out(pathDrawings + drawings()[i].getId() + ".u", ios::binary);
-		out.write((char*)&drawings()[i], sizeof(drawings()[i]));
-		//in.read((char*)S, sizeof(S));          //в случае с массивом можно и так
-		out.close();
-
+		drawings()[i].serilization(pathDrawings);
 	}
 
 }
@@ -121,29 +111,17 @@ void load() {
 	string pathUsers = "data/Users/";
 	string pathDrawings = "data/Drawings/";
 
-	//fs::create_directories(pathUsers);
 	for (auto& p : fs::directory_iterator(pathUsers)) {
 
-		User tmp;
-
-		ifstream in(p.path(), ios::binary);
-		in.read((char*)&tmp, sizeof(User));
-		in.close();
-
-		users().push_back(tmp);
+		users().push_back(User());
+		users().back().deserilization(p);
 
 	}
 
-	//fs::create_directories(pathDrawings);
 	for (auto& p : fs::directory_iterator(pathDrawings)) {
 
-		Drawing tmp;
-
-		ifstream in(p.path(), ios::binary);
-		in.read((char*)&tmp, sizeof(Drawing));
-		in.close();
-
-		drawings().push_back(tmp);
+		drawings().push_back(Drawing());
+		drawings().back().deserilization(p);
 
 	}
 

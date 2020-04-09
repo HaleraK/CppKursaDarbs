@@ -2,10 +2,15 @@
 #include <iostream>
 #include <vector>
 
+#include <fstream>
+#include <iostream>
+#include <filesystem>
+
 #include "Drawing.h"
 
 using std::string;
 using std::vector;
+using namespace std;
 
 void Drawing::constructor(string userNick, string id, string title, string fileName, string dateAndTimeOfAdd) {
 
@@ -191,8 +196,175 @@ string Drawing::getTags() {
 
 	return out;
 
-};
+}
 
 int Drawing::getCountTags() {
 	return Drawing::tags.size();
+}
+
+string Drawing::getTag(int i) {
+	return Drawing::tags[i];
+}
+
+void Drawing::serilization(string path) {
+
+	//string userNick, string id, string title, string fileName, string dateAndTimeOfAdd, vector<string> tags, string description
+
+	//#Структура файла Drawing.d
+	//userNick{...}
+	//title{...}
+	//fileName{...}
+	//dateAndTimeOfAdd{...}
+	//tags{{...}{...}{...}{...}{...} ... }
+	//description{...}
+
+	ofstream out(path + Drawing::getId() + ".d", ios_base::trunc | ios_base::out);
+
+	if (!out.is_open()) // если файл небыл открыт
+	{
+		return;
+	}
+
+	out << "#Drawing " << Drawing::getId() << endl;
+	out << "userNick{" << Drawing::getUserNick() << "}" << endl;
+	out << "id{" << Drawing::getId() << "}" << endl;
+	out << "title{" << Drawing::getTitle() << "}" << endl;
+	out << "fileName{" << Drawing::getFileName() << "}" << endl;
+	out << "dateAndTimeOfAdd{" << Drawing::getDateAndTimeOfAdd() << "}" << endl;
+
+	out << "tags{";
+	for (int i = 0; i < Drawing::getCountTags(); i++) {
+		out << "{" << Drawing::getTag(i) << "}";
+	}
+	out << "}" << endl;
+
+	out << "description{" << Drawing::getDescription() << "}" << endl;
+
+	out.close();
+
+}
+
+void Drawing::deserilization(const std::filesystem::directory_entry file) {
+
+	string buffer;
+	string paramType;
+	int posStart = 0;
+	vector<string> vecBuffer;
+	
+	ifstream in(file, ios_base::in);
+
+	if (!in.is_open()) // если файл небыл открыт
+	{
+		return;
+	}
+
+	while (!in.eof()) {
+
+		getline(in, buffer);
+
+		if (Drawing::isComment(buffer)) {
+			continue;
+		}
+		paramType = Drawing::getParamName(buffer);
+
+		if (paramType == "{error}") {
+			continue;
+		}
+
+		if (paramType == "userNick") {
+			Drawing::setUserNick(Drawing::getParam(buffer, posStart));
+		}
+		if (paramType == "title") {
+			Drawing::setTitle(Drawing::getParam(buffer, posStart));
+		}
+		if (paramType == "fileName") {
+			Drawing::setFileName(Drawing::getParam(buffer, posStart));
+		}
+		if (paramType == "dateAndTimeOfAdd") {
+			Drawing::setDateAndTimeOfAdd(Drawing::getParam(buffer, posStart));
+		}
+		if (paramType == "description") {
+			Drawing::setDescription(Drawing::getParam(buffer, posStart));
+		}
+		if (paramType == "id") {
+			Drawing::setId(Drawing::getParam(buffer, posStart));
+		}
+
+		if (paramType == "tags") {
+
+			posStart += paramType.length() + 1;
+
+			while (true) {
+
+				vecBuffer.push_back(Drawing::getParam(buffer, posStart));
+				posStart += vecBuffer.back().length() + 1;
+
+				if ((posStart + 1) >= buffer.length()) {
+					break;
+				}
+
+			}
+			Drawing::addTags(vecBuffer);
+		}
+
+	}
+
+	in.close();
+
+}
+
+string Drawing::getParamName(string buffer) {
+	string out;
+
+	if (buffer[0] == '{') {
+		return "";
+	}
+
+	for (int i = 0; i < buffer.length(); i++) {
+
+		if (buffer[i] == '{') {
+			return out;
+		}
+		out += buffer[i];
+
+	}
+
+	return "{error}";
+}
+
+bool Drawing::isComment(string buffer) {
+	if (buffer[0] == '#') {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+string Drawing::getParam(string buffer, int posStart) {
+	string out;
+	bool start = false;
+	bool end = false;
+
+	for (int i = posStart; i < buffer.length(); i++) {
+
+		if (start == true) {
+			if (buffer[i] == '}') {
+				end = true;
+				break;
+			}
+			out += buffer[i];
+		}
+		if (buffer[i] == '{') {
+			start = true;
+		}
+
+	}
+
+	if (start && end) {
+		return	out;
+	}
+	else {
+		return "";
+	}
 }

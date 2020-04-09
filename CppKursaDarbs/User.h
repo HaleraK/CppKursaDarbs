@@ -4,6 +4,10 @@
 #include <iostream>
 #include <vector>
 
+#include <fstream>
+#include <iostream>
+#include <filesystem>
+
 using std::string;
 using std::vector;
 
@@ -12,7 +16,6 @@ class User {
 public:
 
 	User() {
-		//forbiddenForNameAndSurname().resize(42);
 		forbiddenForNameAndSurname() = { '1','2','3','4','5','6','7','8','9','0','-','_','=','+','[',']','{','}','/','\\','\'','"',';',':','`','~','<','>',',','.','?','!','@','#','$','%','^','&','*','(',')','|' };
 
 	}
@@ -27,6 +30,14 @@ public:
 	User(string name, string surname, string nick, string login, string password, string dateOfReg) {
 		
 		constructor(name, surname, nick, login, password, dateOfReg);
+
+	}
+
+	User(string name, string surname, string nick, string login, string password, string dateOfReg, string about, vector<string> drawingsIDs) {
+
+		constructor(name, surname, nick, login, password, dateOfReg);
+		User::setAbout(about);
+		User::addDrawingIDs(drawingsIDs);
 
 	}
 
@@ -66,8 +77,16 @@ public:
 	bool isDoubleDrawingID(string id);
 
 	string getDrawingIDs();
+	string getDrawingID(int i);
 
 	int getCountDrawingIDs();
+
+	void serilization(string path);
+	void deserilization(const std::filesystem::directory_entry file);
+
+	string getParamName(string buffer);
+	bool isComment(string buffer);
+	string getParam(string buffer, int posStart);
 
 private:
 	bool isCorrect;
@@ -85,6 +104,8 @@ private:
 	static vector<char> &forbiddenForNameAndSurname() {
 		static vector<char> f;
 		return f;
-	};
+	}
+
+	//txt out
 
 };

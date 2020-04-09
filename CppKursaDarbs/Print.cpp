@@ -105,7 +105,7 @@ void printUser() {
 		}
 
 		std::cout << "------------------------------------------------\n";
-		std::cout << "Print informations about [nick] user\n";
+		std::cout << "Print informations about " << users()[i].getNick() << " user\n";
 		std::cout << "------------------------------------------------\n";
 		std::cout << "1 All\n";
 		std::cout << "2 Without login, pasword and about\n";
@@ -185,7 +185,7 @@ void printDrawing() {
 		}
 
 		std::cout << "------------------------------------------------\n";
-		std::cout << "Print informations about [id] drawing\n";
+		std::cout << "Print informations about " << drawings()[i].getId() << " drawing\n";
 		std::cout << "------------------------------------------------\n";
 		std::cout << "1 All\n";
 		std::cout << "2 Without description\n";
@@ -242,7 +242,7 @@ void printUsers() {
 			if (returnToMenu()) { break; }
 
 			std::cout << "------------------------------------------------\n";
-			std::cout << "Sort drawings by\n";
+			std::cout << "Sort users by\n";
 			std::cout << "------------------------------------------------\n";
 			std::cout << "1 Without\n";
 			std::cout << "2 Name\n";
@@ -551,7 +551,7 @@ void outDrawing(int i, char type) {
 
 void tableUsers(char type, vector<int> elements) {
 	std::cout << "------------------------------------------------\n";
-	std::cout << "Table users()\n";
+	std::cout << "Table users\n";
 	std::cout << "------------------------------------------------\n";
 
 	int j = 0;
@@ -564,6 +564,7 @@ void tableUsers(char type, vector<int> elements) {
 			for (int i = 0; i < users().size(); i++) {
 				if ((i == elements[j])) {
 					std::cout << users()[i].getNick() << "\t" << users()[i].getName() << "\t" << users()[i].getSurname() << "\t" << users()[i].getLogin() << "\t" << users()[i].getPassword() << "\t" << users()[i].getDateOfReg() << "\t" << users()[i].getAbout() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+					std::cout << std::endl;
 					j++;
 				}
 			}
@@ -571,6 +572,7 @@ void tableUsers(char type, vector<int> elements) {
 		else if (elements[0] == -1) {
 			for (int i = 0; i < users().size(); i++) {
 				std::cout << users()[i].getNick() << "\t" << users()[i].getName() << "\t" << users()[i].getSurname() << "\t" << users()[i].getLogin() << "\t" << users()[i].getPassword() << "\t" << users()[i].getDateOfReg() << "\t" << users()[i].getAbout() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+				std::cout << std::endl;
 			}
 		}
 
@@ -583,6 +585,7 @@ void tableUsers(char type, vector<int> elements) {
 			for (int i = 0; i < users().size(); i++) {
 				if ((i == elements[j])) {
 					std::cout << users()[i].getNick() << "\t" << users()[i].getName() << "\t" << users()[i].getSurname() << "\t" << users()[i].getDateOfReg() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+					std::cout << std::endl;
 					j++;
 				}
 			}
@@ -590,6 +593,7 @@ void tableUsers(char type, vector<int> elements) {
 		else if (elements[0] == -1) {
 			for (int i = 0; i < users().size(); i++) {
 				std::cout << users()[i].getNick() << "\t" << users()[i].getName() << "\t" << users()[i].getSurname() << "\t" << users()[i].getDateOfReg() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+				std::cout << std::endl;
 			}
 		}
 
@@ -602,6 +606,7 @@ void tableUsers(char type, vector<int> elements) {
 			for (int i = 0; i < users().size(); i++) {
 				if ((i == elements[j])) {
 					std::cout << users()[i].getNick() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+					std::cout << std::endl;
 					j++;
 				}
 			}
@@ -609,15 +614,16 @@ void tableUsers(char type, vector<int> elements) {
 		else if (elements[0] == -1) {
 			for (int i = 0; i < users().size(); i++) {
 				std::cout << users()[i].getNick() << "\t" << "(" << users()[i].getCountDrawingIDs() << ") " << users()[i].getDrawingIDs();
+				std::cout << std::endl;
 			}
 		}
-
 	}
+	
 }
 
 void tableDrawings(char type, vector<int> elements) {
 	std::cout << "------------------------------------------------\n";
-	std::cout << "Table drawings()\n";
+	std::cout << "Table drawings\n";
 	std::cout << "------------------------------------------------\n";
 
 	int j = 0;
@@ -630,6 +636,7 @@ void tableDrawings(char type, vector<int> elements) {
 			for (int i = 0; i < drawings().size(); i++) {
 				if ((i == elements[j])) {
 					std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName() << "\t" << drawings()[i].getDateAndTimeOfAdd() << "\t" << drawings()[i].getDescription() << "\t" << "(" << drawings()[i].getCountTags() << ") " << drawings()[i].getTags();
+					std::cout << std::endl;
 					j++;
 				}
 			}
@@ -637,6 +644,7 @@ void tableDrawings(char type, vector<int> elements) {
 		else if (elements[0] == -1) {
 			for (int i = 0; i < drawings().size(); i++) {
 				std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName() << "\t" << drawings()[i].getDateAndTimeOfAdd() << "\t" << drawings()[i].getDescription() << "\t" << "(" << drawings()[i].getCountTags() << ") " << drawings()[i].getTags();
+				std::cout << std::endl;
 			}
 		}
 
@@ -649,6 +657,7 @@ void tableDrawings(char type, vector<int> elements) {
 			for (int i = 0; i < drawings().size(); i++) {
 				if ((i == elements[j])) {
 					std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName() << "\t" << drawings()[i].getDateAndTimeOfAdd() << "\t" << "(" << drawings()[i].getCountTags() << ") " << drawings()[i].getTags();
+					std::cout << std::endl;
 					j++;
 				}
 			}
@@ -656,6 +665,7 @@ void tableDrawings(char type, vector<int> elements) {
 		else if (elements[0] == -1) {
 			for (int i = 0; i < drawings().size(); i++) {
 				std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName() << "\t" << drawings()[i].getDateAndTimeOfAdd() << "\t" << "(" << drawings()[i].getCountTags() << ") " << drawings()[i].getTags();
+				std::cout << std::endl;
 			}
 		}
 
@@ -668,6 +678,7 @@ void tableDrawings(char type, vector<int> elements) {
 			for (int i = 0; i < drawings().size(); i++) {
 				if ((i == elements[j])) {
 					std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName();
+					std::cout << std::endl;
 					j++;
 				}
 			}
@@ -675,6 +686,7 @@ void tableDrawings(char type, vector<int> elements) {
 		else if (elements[0] == -1) {
 			for (int i = 0; i < drawings().size(); i++) {
 				std::cout << drawings()[i].getTitle() << "\t" << drawings()[i].getUserNick() << "\t" << drawings()[i].getId() << "\t" << drawings()[i].getFileName();
+				std::cout << std::endl;
 			}
 		}
 
