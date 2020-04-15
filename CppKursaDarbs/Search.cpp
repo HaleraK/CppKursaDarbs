@@ -15,7 +15,6 @@ using std::string;
 using std::vector;
 
 
-
 int searchUserByNick(string value) {
 
 	for (int i = 0; i < users().size(); i++) {
@@ -35,6 +34,36 @@ int searchDrawingById(string value) {
 		}
 	}
 	return -1;
+
+}
+
+vector<int> searchUsersByNick(string input) {
+
+	vector<int> outPrint;
+
+	for (int i = 0; i < users().size(); i++) {
+		if ((users()[i].getNick().find(input) != std::string::npos)) {
+			outPrint.push_back(i);
+			continue;
+		}
+	}
+
+	return outPrint;
+
+}
+
+vector<int> searchDrawingsById(string input) {
+
+	vector<int> outPrint;
+
+	for (int i = 0; i < drawings().size(); i++) {
+		if ((drawings()[i].getId().find(input) != std::string::npos)) {
+			outPrint.push_back(i);
+			continue;
+		}
+	}
+
+	return outPrint;
 
 }
 
@@ -176,6 +205,11 @@ void searchUser() {
 		//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::getline(std::cin, choise);
 
+		if (isToMenu(choise)) {
+			returnToMenu() = true;
+			break;
+		}
+
 		if (isInputNum(choise)) {
 			stringstream geek(choise);
 			geek >> numChoise;
@@ -185,12 +219,17 @@ void searchUser() {
 		}
 
 		std::cout << "------------------------------------------------\n";
-		std::cout << "Please input serch word\n";
+		std::cout << "Please input serch word (input 0 to go main menu)\n";
 		std::cout << "------------------------------------------------\n";
 
 		cin.clear();
-		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cin >> search;
+		//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::getline(std::cin, search);
+
+		if (isToMenu(search)) {
+			returnToMenu() = true;
+			break;
+		}
 
 		switch (numChoise) {
 		case (0): {
@@ -198,7 +237,7 @@ void searchUser() {
 			break;
 		}
 		case (1): {
-			outUser(searchUserByNick(search), 'a');
+			tableUsers('a', searchUsersByNick(search));
 			break;
 		}
 		case (2): {
@@ -234,6 +273,11 @@ void searchDrawing() {
 		//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::getline(std::cin, choise);
 
+		if (isToMenu(choise)) {
+			returnToMenu() = true;
+			break;
+		}
+
 		if (isInputNum(choise)) {
 			stringstream geek(choise);
 			geek >> numChoise;
@@ -243,12 +287,17 @@ void searchDrawing() {
 		}
 
 		std::cout << "------------------------------------------------\n";
-		std::cout << "Please input serch word\n";
+		std::cout << "Please input serch word (input 0 to go main menu)\n";
 		std::cout << "------------------------------------------------\n";
 
 		cin.clear();
 		//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::getline(std::cin, choise);
+		std::getline(std::cin, search);
+
+		if (isToMenu(search)) {
+			returnToMenu() = true;
+			break;
+		}
 
 		switch (numChoise) {
 		case (0): {
@@ -256,7 +305,7 @@ void searchDrawing() {
 			break;
 		}
 		case (1): {
-			outDrawing(searchDrawingById(search), 'a');
+			tableDrawings('a', searchDrawingsById(search));
 			break;
 		}
 		case (2): {

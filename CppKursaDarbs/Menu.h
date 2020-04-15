@@ -40,10 +40,6 @@ inline vector<string> &forDelUsers() {
 }
 
 bool isInputNum(string input);
-bool isInputNum(string input);
 bool isToMenu(string value);
 void errorMsg();
-void searchUser();
-void searchDrawing();
-void search();
 void mainMenu();

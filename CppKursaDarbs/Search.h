@@ -10,6 +10,9 @@ using std::vector;
 int searchUserByNick(string value);
 int searchDrawingById(string value);
 
+vector<int> searchUsersByNick(string input);
+vector<int> searchDrawingsById(string input);
+
 vector<int> searchByParamUser(string input);
 vector<int> searchByParamDrawing(string input);
 

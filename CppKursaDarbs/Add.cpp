@@ -96,10 +96,12 @@ void createUser() {
 	first6param.resize(6);
 	string about;
 	int pos;
+	bool error = false;
 
 	while (true) {
 		if (returnToMenu()) { break; }
 
+		error = false;
 		value = "";
 
 		first6param.clear();
@@ -127,14 +129,19 @@ void createUser() {
 			pos += first6param[i].length() + 1;
 
 			if (first6param[i] == "") {
-				errorMsg();
-				continue;
+				error = true;
+				break;
 			}
 
 		}
 
 		if (value.length() > pos) {
 			about = createLastParam(value, pos);
+		}
+
+		if (error) {
+			errorMsg();
+			continue;
 		}
 
 		break;
@@ -160,11 +167,13 @@ void createDrawing() {
 	string description;
 	vector<string> tags;
 	int pos;
+	bool error = false;
 
 	while (true) {
 		if (returnToMenu()) { break; }
 
 		value = "";
+		error = false;
 
 		first5param.clear();
 		description = "";
@@ -190,13 +199,13 @@ void createDrawing() {
 			pos += first5param[i].length() + 1;
 
 			if (first5param[i] == "") {
-				errorMsg();
-				continue;
+				error = true;
+				break;
 			}
 
 		}
 
-		while (true) {
+		while (true && !error) {
 			if (value.length() > pos) {
 				if (value[pos] == '#') {
 					tags.push_back(createOneWord(value, pos));
@@ -212,8 +221,13 @@ void createDrawing() {
 		}
 				
 
-		if (value.length() > pos) {
+		if (value.length() > pos && !error) {
 			description = createLastParam(value, pos);
+		}
+
+		if (error) {
+			errorMsg();
+			continue;
 		}
 
 		break;

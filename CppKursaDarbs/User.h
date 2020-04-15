@@ -17,7 +17,7 @@ public:
 
 	User() {
 		forbiddenForNameAndSurname() = { '1','2','3','4','5','6','7','8','9','0','-','_','=','+','[',']','{','}','/','\\','\'','"',';',':','`','~','<','>',',','.','?','!','@','#','$','%','^','&','*','(',')','|' };
-
+		forbidden() = { '{' , '}' };
 	}
 
 	User(string name, string surname, string nick, string login, string password, string dateOfReg, string about) {
@@ -44,6 +44,7 @@ public:
 	void constructor(string name, string surname, string nick, string login, string password, string dateOfReg);
 
 	bool isOneWord(string value);
+	bool isFobiddenInWord(string input, vector<char> forbiddenV);
 
 	void setName(string value);
 	string getName();
@@ -102,6 +103,11 @@ private:
 	vector<string> drawingIDs;
 
 	static vector<char> &forbiddenForNameAndSurname() {
+		static vector<char> f;
+		return f;
+	}
+
+	static vector<char> &forbidden() {
 		static vector<char> f;
 		return f;
 	}

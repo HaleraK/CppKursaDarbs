@@ -23,15 +23,13 @@
 using namespace std;
 
 bool isInputNum(string input) {
-	try {
-		stringstream geek(input);
-		int num;
-		geek >> num;
-		return true;
-	}
-	catch (int e) {
+	std::size_t found = input.find_first_not_of("0123456789");
+
+	if (found != std::string::npos)
+	{
 		return false;
 	}
+	return true;
 }
 
 bool isToMenu(string value) {
@@ -125,6 +123,7 @@ void mainMenu() {
 			}
 			default:
 				errorMsg();
+				cin.get();
 				break;
 		}
 

@@ -15,6 +15,7 @@ using namespace std;
 void User::constructor(string name, string surname, string nick, string login, string password, string dateOfReg) {
 
 	User::forbiddenForNameAndSurname() = { '1','2','3','4','5','6','7','8','9','0','-','_','=','+','[',']','{','}','/','\\','\'','"',';',':','`','~','<','>',',','.','?','!','@','#','$','%','^','&','*','(',')','|' };
+	User::forbidden() = { '{' , '}' };
 	User::setName(name);
 	User::setSurname(surname);
 	User::setNick(nick);
@@ -36,16 +37,27 @@ bool User::isOneWord(string value) {
 
 };
 
+bool User::isFobiddenInWord(string input, vector<char> forbiddenV) {
+
+	for (int i = 0; i < input.length(); ++i) {
+		for (int j = 0; j < forbiddenV.size(); ++j) {
+			if (input[i] == forbiddenV[j]) {
+				return true;
+			}
+		}
+	}
+	return false;
+
+}
+
 void User::setName(string value) {
 
-	for (int i = 0; i < value.length(); ++i) {
-		for (int j = 0; j < User::forbiddenForNameAndSurname().size(); ++j) {
-			if (value[i] == User::forbiddenForNameAndSurname()[j]) {
-				return;
-			}
-		}	
+	if (User::isFobiddenInWord(value, User::forbiddenForNameAndSurname())) {
+		return;
 	}
-
+	if (User::isFobiddenInWord(value, User::forbidden())) {
+		return;
+	}
 	if (User::isOneWord(value)) {
 		User::name = value;
 	}
@@ -58,14 +70,12 @@ string User::getName() {
 
 void User::setSurname(string value) {
 
-	for (int i = 0; i < value.length(); ++i) {
-		for (int j = 0; j < User::forbiddenForNameAndSurname().size(); ++j) {
-			if (value[i] == User::forbiddenForNameAndSurname()[j]) {
-				return;
-			}
-		}
+	if (User::isFobiddenInWord(value, User::forbiddenForNameAndSurname())) {
+		return;
 	}
-
+	if (User::isFobiddenInWord(value, User::forbidden())) {
+		return;
+	}
 	if (User::isOneWord(value)) {
 		User::surname = value;
 	}
@@ -78,6 +88,9 @@ string User::getSurname() {
 
 void User::setNick(string value) {
 
+	if (User::isFobiddenInWord(value, User::forbidden())) {
+		return;
+	}
 	if (User::isOneWord(value)) {
 		User::nick = value;
 	}
@@ -90,6 +103,9 @@ string User::getNick() {
 
 void User::setLogin(string value) {
 
+	if (User::isFobiddenInWord(value, User::forbidden())) {
+		return;
+	}
 	if (User::isOneWord(value)) {
 		User::login = value;
 	}
@@ -102,6 +118,9 @@ string User::getLogin() {
 
 void User::setPassword(string value) {
 
+	if (User::isFobiddenInWord(value, User::forbidden())) {
+		return;
+	}
 	if (User::isOneWord(value)) {
 		User::password = value;
 	}
@@ -113,6 +132,9 @@ string User::getPassword() {
 
 void User::setDateOfReg(string value) {
 
+	if (User::isFobiddenInWord(value, User::forbidden())) {
+		return;
+	}
 	if (User::isOneWord(value)) {
 		User::dateOfReg = value;
 	}
@@ -125,6 +147,9 @@ string User::getDateOfReg() {
 
 void User::setAbout(string value) {
 
+	if (User::isFobiddenInWord(value, User::forbidden())) {
+		return;
+	}
 	User::about = value;
 	
 };
@@ -134,6 +159,9 @@ string User::getAbout() {
 
 void User::addDrawingID(string add) {
 
+	if (User::isFobiddenInWord(add, User::forbidden())) {
+		return;
+	}
 	if (User::isCorrectDrawingID(add) && !User::isDoubleDrawingID(add) && User::isOneWord(add)) {
 		User::drawingIDs.push_back(add);
 	}
@@ -143,7 +171,9 @@ void User::addDrawingID(string add) {
 void User::addDrawingIDs(vector<string> add) {
 
 	for (int i = 0; i < add.size(); i++) {
-
+		if (User::isFobiddenInWord(add[i], User::forbidden())) {
+			continue;
+		}
 		if (User::isCorrectDrawingID(add[i]) && !User::isDoubleDrawingID(add[i]) && User::isOneWord(add[i])) {
 			User::drawingIDs.push_back(add[i]);
 		}

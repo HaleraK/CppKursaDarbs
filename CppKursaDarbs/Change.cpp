@@ -66,38 +66,120 @@ void changeUser() {
 	string choise;
 	string value;
 	vector<string> ids;
-	int numChoise;
-	int i;
+	int numChoise, numChoise2;
+	int i, lid;
 
 	while (true) {
 		if (returnToMenu()) { break; }
 
-		while (true) {
-			if (returnToMenu()) { break; }
+		std::cout << "------------------------------------------------\n";
+		std::cout << "Choose by:\n";
+		std::cout << "\n";
+		std::cout << "1 Nick\n";
+		std::cout << "2 LID\n";
+		std::cout << "0 Main menu\n";
+		std::cout << "------------------------------------------------\n";
 
-			std::cout << "------------------------------------------------\n";
-			std::cout << "Please input users nick (input 0 to go main menu):\n";
-			std::cout << "------------------------------------------------\n";
+		cin.clear();
+		//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::getline(std::cin, choise);
 
-			cin.clear();
-			//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::getline(std::cin, choise);
-
-			if (isToMenu(choise)) {
-				returnToMenu() = true;
-				break;
-			}
-
-			i = searchUserByNick(choise);
-
-			if (i != -1) {
-				break;
-			}
-			else {
-				errorMsg();
-			}
-
+		if (isInputNum(choise)) {
+			stringstream geek(choise);
+			geek >> numChoise2;
 		}
+		else {
+			numChoise2 = -1;
+		}
+
+		if (isToMenu(choise)) {
+			returnToMenu() = true;
+			break;
+		}
+
+		if (numChoise2 == 1 || numChoise2 == 2) {
+			break;
+		}
+		else {
+			errorMsg();
+		}
+
+	}
+
+	while (true) {
+		if (returnToMenu()) { break; }
+
+		switch (numChoise2) {
+		case 1: {
+			while (true) {
+				if (returnToMenu()) { break; }
+
+				std::cout << "------------------------------------------------\n";
+				std::cout << "Please input user nick (input 0 to go main menu):\n";
+				std::cout << "------------------------------------------------\n";
+
+				cin.clear();
+				//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::getline(std::cin, choise);
+
+				if (isToMenu(choise)) {
+					returnToMenu() = true;
+					break;
+				}
+
+				i = searchUserByNick(choise);
+
+				if (i != -1) {
+					break;
+				}
+				else {
+					errorMsg();
+				}
+
+			}
+			break;
+		}
+		case 2: {
+			while (true) {
+				if (returnToMenu()) { break; }
+
+				std::cout << "------------------------------------------------\n";
+				std::cout << "Please input user LID (input -1 to go main menu):\n";
+				std::cout << "------------------------------------------------\n";
+
+				cin.clear();
+				//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::getline(std::cin, choise);
+
+				if (choise == "-1") {
+					returnToMenu() = true;
+					break;
+				}
+
+				if (isInputNum(choise)) {
+					stringstream geek(choise);
+					geek >> lid;
+				}
+				else {
+					lid = -1;
+				}
+
+				if ((lid > users().size() - 1) && lid != -1) {
+					errorMsg();
+				}
+				else {
+					i = lid;
+					break;
+				}
+
+			}
+			break;
+		}
+		default:
+			errorMsg();
+		}
+
+		if (returnToMenu()) { break; }
 
 		outUser(i, 'a');
 
@@ -240,6 +322,8 @@ void changeUser() {
 			break;
 		}
 
+		if (returnToMenu()) { break; }
+
 		if (numChoise > 0 && numChoise < 12) {
 			outUser(i, 'a');
 		}
@@ -253,38 +337,119 @@ void changeDrawing() {
 	string choise;
 	string value;
 	vector<string> tags;
-	int numChoise;
-	int i;
+	int numChoise, numChoise2;
+	int i, lid;
 
 	while (true) {
 		if (returnToMenu()) { break; }
 
-		while (true) {
-			if (returnToMenu()) { break; }
+		std::cout << "------------------------------------------------\n";
+		std::cout << "Choose by:\n";
+		std::cout << "\n";
+		std::cout << "1 ID\n";
+		std::cout << "2 LID\n";
+		std::cout << "0 Main menu\n";
+		std::cout << "------------------------------------------------\n";
 
-			std::cout << "------------------------------------------------\n";
-			std::cout << "Please input drawing id (input 0 to go main menu):\n";
-			std::cout << "------------------------------------------------\n";
+		cin.clear();
+		//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::getline(std::cin, choise);
 
-			cin.clear();
-			//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::getline(std::cin, choise);
-
-			if (isToMenu(choise)) {
-				returnToMenu() = true;
-				break;
-			}
-
-			i = searchDrawingById(choise);
-
-			if (i != -1) {
-				break;
-			}
-			else {
-				errorMsg();
-			}
-
+		if (isInputNum(choise)) {
+			stringstream geek(choise);
+			geek >> numChoise2;
 		}
+		else {
+			numChoise2 = -1;
+		}
+
+		if (isToMenu(choise)) {
+			returnToMenu() = true;
+			break;
+		}
+
+		if (numChoise2 == 1 || numChoise2 == 2) {
+			break;
+		} else {
+			errorMsg();
+		}
+
+	}
+
+	while (true) {
+		if (returnToMenu()) { break; }
+
+		switch (numChoise2) {
+		case 1: {
+			while (true) {
+				if (returnToMenu()) { break; }
+
+				std::cout << "------------------------------------------------\n";
+				std::cout << "Please input drawing id (input 0 to go main menu):\n";
+				std::cout << "------------------------------------------------\n";
+
+				cin.clear();
+				//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::getline(std::cin, choise);
+
+				if (isToMenu(choise)) {
+					returnToMenu() = true;
+					break;
+				}
+
+				i = searchDrawingById(choise);
+
+				if (i != -1) {
+					break;
+				}
+				else {
+					errorMsg();
+				}
+
+			}
+			break;
+		}
+		case 2: {
+			while (true) {
+				if (returnToMenu()) { break; }
+
+				std::cout << "------------------------------------------------\n";
+				std::cout << "Please input drawing LID (input -1 to go main menu):\n";
+				std::cout << "------------------------------------------------\n";
+
+				cin.clear();
+				//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::getline(std::cin, choise);
+
+				if (choise == "-1") {
+					returnToMenu() = true;
+					break;
+				}
+
+				if (isInputNum(choise)) {
+					stringstream geek(choise);
+					geek >> lid;
+				}
+				else {
+					lid = -1;
+				}
+
+				if ((lid > drawings().size() - 1) && lid != -1) {
+					errorMsg();
+				}
+				else {
+					i = lid;
+					break;
+				}
+
+			}
+			break;
+		}
+		default:
+			errorMsg();
+		}
+
+		if (returnToMenu()) { break; }
 
 		outDrawing(i, 'a');
 
@@ -389,10 +554,13 @@ void changeDrawing() {
 			errorMsg();
 			break;
 		}
-	}
 
-	if (numChoise > 0 && numChoise < 11) {
-		outDrawing(i, 'a');
+		if (returnToMenu()) { break; }
+
+		if (numChoise > 0 && numChoise < 11) {
+			outDrawing(i, 'a');
+		}
+
 	}
 
 }

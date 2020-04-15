@@ -107,6 +107,11 @@ void printUser() {
 
 		}
 
+		if (isToMenu(choise)) {
+			returnToMenu() = true;
+			break;
+		}
+
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Print informations about " << users()[i].getNick() << " user\n";
 		std::cout << "\n";
@@ -187,6 +192,11 @@ void printDrawing() {
 
 		}
 
+		if (isToMenu(choise)) {
+			returnToMenu() = true;
+			break;
+		}
+
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Print informations about " << drawings()[i].getId() << " drawing\n";
 		std::cout << "\n";
@@ -261,6 +271,11 @@ void printUsers() {
 			//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::getline(std::cin, choise);
 
+			if (isToMenu(choise)) {
+				returnToMenu() = true;
+				break;
+			}
+
 			if (isInputNum(choise)) {
 				stringstream geek(choise);
 				geek >> numChoise;
@@ -318,6 +333,8 @@ void printUsers() {
 			}
 
 		}
+
+		if (returnToMenu()) { break; }
 
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Print informations about users\n";
@@ -392,6 +409,11 @@ void printDrawings() {
 			//cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::getline(std::cin, choise);
 
+			if (isToMenu(choise)) {
+				returnToMenu() = true;
+				break;
+			}
+
 			if (isInputNum(choise)) {
 				stringstream geek(choise);
 				geek >> numChoise;
@@ -445,6 +467,8 @@ void printDrawings() {
 
 		}
 
+		if (returnToMenu()) { break; }
+
 		std::cout << "------------------------------------------------\n";
 		std::cout << "Print informations about drawings\n";
 		std::cout << "\n";
@@ -496,6 +520,7 @@ void outUser(int i, char type) {
 	std::cout << "\n";
 
 	if (type == 'a') {
+		std::cout << "LID: " << i << "\n";
 		std::cout << "NICK: " << users()[i].getNick() << "\n";
 		std::cout << "NAME: " << users()[i].getName() << "\n";
 		std::cout << "SURNAME: " << users()[i].getSurname() << "\n";
@@ -506,6 +531,7 @@ void outUser(int i, char type) {
 		std::cout << "DRAWINGS (" << users()[i].getCountDrawingIDs() << "): " << users()[i].getDrawingIDs() << "\n";
 	}
 	if (type == 'm') {
+		std::cout << "LID: " << i << "\n";
 		std::cout << "NICK: " << users()[i].getNick() << "\n";
 		std::cout << "NAME: " << users()[i].getName() << "\n";
 		std::cout << "SURNAME: " << users()[i].getSurname() << "\n";
@@ -513,6 +539,7 @@ void outUser(int i, char type) {
 		std::cout << "DRAWINGS (" << users()[i].getCountDrawingIDs() << "): " << users()[i].getDrawingIDs() << "\n";
 	}
 	if (type == 's') {
+		std::cout << "LID: " << i << "\n";
 		std::cout << "NICK: " << users()[i].getNick() << "\n";
 		std::cout << "DRAWINGS (" << users()[i].getCountDrawingIDs() << "): " << users()[i].getDrawingIDs() << "\n";
 	}
@@ -526,6 +553,7 @@ void outDrawing(int i, char type) {
 	std::cout << "\n";
 
 	if (type == 'a') {
+		std::cout << "LID: " << i << "\n";
 		std::cout << "TITLE: " << drawings()[i].getTitle() << "\n";
 		std::cout << "OWNER: " << drawings()[i].getUserNick() << "\n";
 		std::cout << "ID: " << drawings()[i].getId() << "\n";
@@ -535,6 +563,7 @@ void outDrawing(int i, char type) {
 		std::cout << "TAGS (" << drawings()[i].getCountTags() << "): " << drawings()[i].getTags() << "\n";
 	}
 	if (type == 'm') {
+		std::cout << "LID: " << i << "\n";
 		std::cout << "TITLE: " << drawings()[i].getTitle() << "\n";
 		std::cout << "OWNER: " << drawings()[i].getUserNick() << "\n";
 		std::cout << "ID: " << drawings()[i].getId() << "\n";
@@ -543,6 +572,7 @@ void outDrawing(int i, char type) {
 		std::cout << "TAGS (" << drawings()[i].getCountTags() << "): " << drawings()[i].getTags() << "\n";
 	}
 	if (type == 's') {
+		std::cout << "LID: " << i << "\n";
 		std::cout << "TITLE: " << drawings()[i].getTitle() << "\n";
 		std::cout << "OWNER: " << drawings()[i].getUserNick() << "\n";
 		std::cout << "ID: " << drawings()[i].getId() << "\n";
@@ -553,6 +583,9 @@ void outDrawing(int i, char type) {
 };
 
 void tableUsers(char type, vector<int> elements) {
+	if (elements.empty()) {
+		return;
+	}
 	std::cout << "------------------------------------------------\n";
 	std::cout << "Table users\n";
 	std::cout << "\n";
@@ -560,7 +593,8 @@ void tableUsers(char type, vector<int> elements) {
 	int j = 0;
 
 	if (type == 'a') {
-		std::cout << std::setw(16) << std::left << "NICK"
+		std::cout << std::setw(4) << std::left << "LID"
+			<< std::setw(16) << "NICK"
 			<< std::setw(16) << "NAME"
 			<< std::setw(16) << "SURNAME"
 			<< std::setw(16) << "LOGIN"
@@ -574,7 +608,8 @@ void tableUsers(char type, vector<int> elements) {
 		if (elements[0] != -1) {
 			for (int i = 0; i < users().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << std::setw(16) << std::left << users()[i].getNick()
+					std::cout << std::setw(4) << std::left << i
+						<< std::setw(16) << users()[i].getNick()
 						<< std::setw(16) << users()[i].getName()
 						<< std::setw(16) << users()[i].getSurname()
 						<< std::setw(16) << users()[i].getLogin()
@@ -599,7 +634,8 @@ void tableUsers(char type, vector<int> elements) {
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < users().size(); i++) {
-				std::cout << std::setw(16) << std::left << users()[i].getNick()
+				std::cout << std::setw(4) << std::left << i
+					<< std::setw(16) << users()[i].getNick()
 					<< std::setw(16) << users()[i].getName()
 					<< std::setw(16) << users()[i].getSurname()
 					<< std::setw(16) << users()[i].getLogin()
@@ -623,7 +659,8 @@ void tableUsers(char type, vector<int> elements) {
 
 	}
 	if (type == 'm') {
-		std::cout << std::setw(16) << std::left << "NICK"
+		std::cout << std::setw(4) << std::left << "LID"
+			<< std::setw(16) << "NICK"
 			<< std::setw(16) << "NAME"
 			<< std::setw(16) << "SURNAME"
 			<< std::setw(16) << "DATE OF REG"
@@ -634,7 +671,8 @@ void tableUsers(char type, vector<int> elements) {
 		if (elements[0] != -1) {
 			for (int i = 0; i < users().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << std::setw(16) << std::left << users()[i].getNick()
+					std::cout << std::setw(4) << std::left << i
+						<< std::setw(16) << users()[i].getNick()
 						<< std::setw(16) << users()[i].getName()
 						<< std::setw(16) << users()[i].getSurname()
 						<< std::setw(16) << users()[i].getDateOfReg();
@@ -651,7 +689,8 @@ void tableUsers(char type, vector<int> elements) {
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < users().size(); i++) {
-				std::cout << std::setw(16) << std::left << users()[i].getNick()
+				std::cout << std::setw(4) << std::left << i
+					<< std::setw(16) << users()[i].getNick()
 					<< std::setw(16) << users()[i].getName()
 					<< std::setw(16) << users()[i].getSurname()
 					<< std::setw(16) << users()[i].getDateOfReg();
@@ -667,7 +706,8 @@ void tableUsers(char type, vector<int> elements) {
 
 	}
 	if (type == 's') {
-		std::cout << std::setw(16) << std::left << "NICK"
+		std::cout << std::setw(4) << std::left << "LID"
+			<< std::setw(16) << "NICK"
 			<< "DRAWINGS IDS"
 			<< std::endl;
 		std::cout << "\n";
@@ -675,7 +715,8 @@ void tableUsers(char type, vector<int> elements) {
 		if (elements[0] != -1) {
 			for (int i = 0; i < users().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << std::setw(16) << std::left << users()[i].getNick();
+					std::cout << std::setw(4) << std::left << i
+						<< std::setw(16) << users()[i].getNick();
 					if (users()[i].getDrawingIDs().length() > 25) {
 						std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25) + "...";
 					}
@@ -689,7 +730,8 @@ void tableUsers(char type, vector<int> elements) {
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < users().size(); i++) {
-				std::cout << std::setw(16) << std::left << users()[i].getNick();
+				std::cout << std::setw(4) << std::left << i
+					<< std::setw(16) << users()[i].getNick();
 				if (users()[i].getDrawingIDs().length() > 25) {
 					std::cout << "(" + to_string(users()[i].getCountDrawingIDs()) + ") " + users()[i].getDrawingIDs().substr(0, 25) + "...";
 				}
@@ -705,6 +747,9 @@ void tableUsers(char type, vector<int> elements) {
 }
 
 void tableDrawings(char type, vector<int> elements) {
+	if (elements.empty()) {
+		return;
+	}
 	std::cout << "------------------------------------------------\n";
 	std::cout << "Table drawings\n";
 	std::cout << "\n";
@@ -712,7 +757,8 @@ void tableDrawings(char type, vector<int> elements) {
 	int j = 0;
 
 	if (type == 'a') {
-		std::cout << std::setw(16) << std::left << "TITLE"
+		std::cout << std::setw(4) << std::left << "LID"
+			<< std::setw(16) << "TITLE"
 			<< std::setw(16) << "OWNER"
 			<< std::setw(16) << "ID"
 			<< std::setw(16) << "FILE NAME"
@@ -725,7 +771,8 @@ void tableDrawings(char type, vector<int> elements) {
 		if (elements[0] != -1) {
 			for (int i = 0; i < drawings().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+					std::cout << std::setw(4) << std::left << i
+						<< std::setw(16) << drawings()[i].getTitle()
 						<< std::setw(16) << drawings()[i].getUserNick()
 						<< std::setw(16) << drawings()[i].getId()
 						<< std::setw(16) << drawings()[i].getFileName()
@@ -749,7 +796,8 @@ void tableDrawings(char type, vector<int> elements) {
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < drawings().size(); i++) {
-				std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+				std::cout << std::setw(4) << std::left << i
+					<< std::setw(16) << drawings()[i].getTitle()
 					<< std::setw(16) << drawings()[i].getUserNick()
 					<< std::setw(16) << drawings()[i].getId()
 					<< std::setw(16) << drawings()[i].getFileName()
@@ -772,7 +820,8 @@ void tableDrawings(char type, vector<int> elements) {
 
 	}
 	if (type == 'm') {
-		std::cout << std::setw(16) << std::left << "TITLE"
+		std::cout << std::setw(4) << std::left << "LID"
+			<< std::setw(16) << "TITLE"
 			<< std::setw(16) << "OWNER"
 			<< std::setw(16) << "ID"
 			<< std::setw(16) << "FILE NAME"
@@ -784,7 +833,8 @@ void tableDrawings(char type, vector<int> elements) {
 		if (elements[0] != -1) {
 			for (int i = 0; i < drawings().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+					std::cout << std::setw(4) << std::left << i
+						<< std::setw(16) << drawings()[i].getTitle()
 						<< std::setw(16) << drawings()[i].getUserNick()
 						<< std::setw(16) << drawings()[i].getId()
 						<< std::setw(16) << drawings()[i].getFileName()
@@ -802,7 +852,8 @@ void tableDrawings(char type, vector<int> elements) {
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < drawings().size(); i++) {
-				std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+				std::cout << std::setw(4) << std::left << i
+					<< std::setw(16) << drawings()[i].getTitle()
 					<< std::setw(16) << drawings()[i].getUserNick()
 					<< std::setw(16) << drawings()[i].getId()
 					<< std::setw(16) << drawings()[i].getFileName()
@@ -819,7 +870,8 @@ void tableDrawings(char type, vector<int> elements) {
 
 	}
 	if (type == 's') {
-		std::cout << std::setw(16) << std::left << "TITLE"
+		std::cout << std::setw(4) << std::left << "LID"
+			<< std::setw(16) << "TITLE"
 			<< std::setw(16) << "OWNER"
 			<< std::setw(16) << "ID"
 			<< std::setw(16) << "FILE NAME"
@@ -829,7 +881,8 @@ void tableDrawings(char type, vector<int> elements) {
 		if (elements[0] != -1) {
 			for (int i = 0; i < drawings().size(); i++) {
 				if ((i == elements[j])) {
-					std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+					std::cout << std::setw(4) << std::left << i
+						<< std::setw(16) << drawings()[i].getTitle()
 						<< std::setw(16) << drawings()[i].getUserNick()
 						<< std::setw(16) << drawings()[i].getId()
 						<< std::setw(16) << drawings()[i].getFileName()
@@ -840,7 +893,8 @@ void tableDrawings(char type, vector<int> elements) {
 		}
 		else if (elements[0] == -1) {
 			for (int i = 0; i < drawings().size(); i++) {
-				std::cout << std::setw(16) << std::left << drawings()[i].getTitle()
+				std::cout << std::setw(4) << std::left << i
+					<< std::setw(16) << drawings()[i].getTitle()
 					<< std::setw(16) << drawings()[i].getUserNick()
 					<< std::setw(16) << drawings()[i].getId()
 					<< std::setw(16) << drawings()[i].getFileName()

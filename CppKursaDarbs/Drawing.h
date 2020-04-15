@@ -16,6 +16,8 @@ public:
 
 	Drawing() {
 
+		forbidden() = { '{' , '}' };
+
 	}
 	
 	Drawing(string userNick, string id, string title, string fileName, string dateAndTimeOfAdd, vector<string> tags, string description) {
@@ -41,6 +43,7 @@ public:
 	void constructor(string userNick, string id, string title, string fileName, string dateAndTimeOfAdd);
 
 	bool isOneWord(string value);
+	bool isFobiddenInWord(string input, vector<char> forbiddenV);
 
 	void setUserNick(string value);
 	string getUserNick();
@@ -91,4 +94,9 @@ private:
 	string dateAndTimeOfAdd;
 
 	vector<string> tags;
+
+	static vector<char> &forbidden() {
+		static vector<char> f;
+		return f;
+	}
 };

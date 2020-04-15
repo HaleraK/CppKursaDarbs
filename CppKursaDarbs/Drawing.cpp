@@ -14,11 +14,12 @@ using namespace std;
 
 void Drawing::constructor(string userNick, string id, string title, string fileName, string dateAndTimeOfAdd) {
 
+	Drawing::forbidden() = { '{' , '}' };
 	Drawing::setUserNick(userNick);
 	Drawing::setId(id);
 	Drawing::setTitle(title);
 	Drawing::setFileName(fileName);
-	Drawing::setDateAndTimeOfAdd(title);
+	Drawing::setDateAndTimeOfAdd(dateAndTimeOfAdd);
 
 };
 
@@ -32,10 +33,26 @@ bool Drawing::isOneWord(string value) {
 
 	return true;
 
-};
+}
+
+bool Drawing::isFobiddenInWord(string input, vector<char> forbiddenV) {
+
+	for (int i = 0; i < input.length(); ++i) {
+		for (int j = 0; j < forbiddenV.size(); ++j) {
+			if (input[i] == forbiddenV[j]) {
+				return true;
+			}
+		}
+	}
+	return false;
+
+}
 
 void Drawing::setUserNick(string value) {
 
+	if (Drawing::isFobiddenInWord(value, Drawing::forbidden())) {
+		return;
+	}
 	if (Drawing::isOneWord(value)) {
 		Drawing::userNick = value;
 	}
@@ -48,6 +65,9 @@ string Drawing::getUserNick() {
 
 void Drawing::setId(string value) {
 
+	if (Drawing::isFobiddenInWord(value, Drawing::forbidden())) {
+		return;
+	}
 	if (Drawing::isOneWord(value)) {
 		Drawing::id = value;
 	}
@@ -60,6 +80,9 @@ string Drawing::getId() {
 
 void Drawing::setTitle(string value) {
 
+	if (Drawing::isFobiddenInWord(value, Drawing::forbidden())) {
+		return;
+	}
 	if (Drawing::isOneWord(value)) {
 		Drawing::title = value;
 	}
@@ -70,7 +93,10 @@ string Drawing::getTitle() {
 };
 
 void Drawing::setDescription(string value) {
-
+	
+	if (Drawing::isFobiddenInWord(value, Drawing::forbidden())) {
+		return;
+	}
 	Drawing::description = value;
 	
 };
@@ -80,6 +106,9 @@ string Drawing::getDescription() {
 
 void Drawing::setFileName(string value) {
 
+	if (Drawing::isFobiddenInWord(value, Drawing::forbidden())) {
+		return;
+	}
 	if (Drawing::isOneWord(value)) {
 		Drawing::fileName = value;
 	}
@@ -92,6 +121,9 @@ string Drawing::getFileName() {
 
 void Drawing::setDateAndTimeOfAdd(string value) {
 
+	if (Drawing::isFobiddenInWord(value, Drawing::forbidden())) {
+		return;
+	}
 	if (Drawing::isOneWord(value)) {
 		Drawing::dateAndTimeOfAdd = value;
 	}
@@ -104,6 +136,9 @@ string Drawing::getDateAndTimeOfAdd() {
 
 void Drawing::addTag(string add) {
 
+	if (Drawing::isFobiddenInWord(add, Drawing::forbidden())) {
+		return;
+	}
 	if (Drawing::isCorrectTag(add) && !Drawing::isDoubleTag(add) && Drawing::isOneWord(add)) {
 		Drawing::tags.push_back(add);
 	}
@@ -114,6 +149,9 @@ void Drawing::addTags(vector<string> add) {
 
 	for (int i = 0; i < add.size(); i++) {
 
+		if (Drawing::isFobiddenInWord(add[i], Drawing::forbidden())) {
+			return;
+		}
 		if (Drawing::isCorrectTag(add[i]) && !Drawing::isDoubleTag(add[i]) && Drawing::isOneWord(add[i])) {
 			Drawing::tags.push_back(add[i]);
 		}
