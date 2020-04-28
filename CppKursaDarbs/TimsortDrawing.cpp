@@ -21,7 +21,7 @@ void insertionSortDrawings(int type, int left, int right) {
 		switch (type) {
 		case (1): {
 			//userNick
-			while (drawings()[j].getUserNick() > tmp.getUserNick() && j >= left) {
+			while (j < drawings().size() && (drawings()[j].getUserNick() > tmp.getUserNick() && j >= left)) {
 				drawings()[j + 1] = drawings()[j];
 				j--;
 			}
@@ -29,7 +29,7 @@ void insertionSortDrawings(int type, int left, int right) {
 		}
 		case (2): {
 			//id
-			while (drawings()[j].getId() > tmp.getId() && j >= left) {
+			while (j < drawings().size() && (drawings()[j].getId() > tmp.getId() && j >= left)) {
 				drawings()[j + 1] = drawings()[j];
 				j--;
 			}
@@ -37,7 +37,7 @@ void insertionSortDrawings(int type, int left, int right) {
 		}
 		case (3): {
 			//title
-			while (drawings()[j].getTitle() > tmp.getTitle() && j >= left) {
+			while (j < drawings().size() && (drawings()[j].getTitle() > tmp.getTitle() && j >= left)) {
 				drawings()[j + 1] = drawings()[j];
 				j--;
 			}
@@ -45,7 +45,7 @@ void insertionSortDrawings(int type, int left, int right) {
 		}
 		case (4): {
 			//fileName
-			while (drawings()[j].getFileName() > tmp.getFileName() && j >= left) {
+			while (j < drawings().size() && (drawings()[j].getFileName() > tmp.getFileName() && j >= left)) {
 				drawings()[j + 1] = drawings()[j];
 				j--;
 			}
@@ -53,7 +53,7 @@ void insertionSortDrawings(int type, int left, int right) {
 		}
 		case (5): {
 			//dataAndTimeOfAdd
-			while (drawings()[j].getDateAndTimeOfAdd() > tmp.getDateAndTimeOfAdd() && j >= left) {
+			while (j < drawings().size() && (drawings()[j].getDateAndTimeOfAdd() > tmp.getDateAndTimeOfAdd() && j >= left)) {
 				drawings()[j + 1] = drawings()[j];
 				j--;
 			}
@@ -172,7 +172,7 @@ void mergeDrawings(int type, int l, int m, int r) {
 void timSortDrawings(int type, int n) {
 	// Sort individual subarrays of size RUN 
 	for (int i = 0; i < n; i += RUN_d)
-		insertionSortDrawings(type, i, min((i + 31), (n - 1)));
+		insertionSortDrawings(type, i, min((i + 3), (n - 1)));
 
 	// start merging from size RUN (or 32). It will merge 
 	// to form size 64, then 128, 256 and so on .... 

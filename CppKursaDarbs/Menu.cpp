@@ -162,8 +162,18 @@ void mainMenu() {
 					break;
 				}
 				case (1): {
-					save();
-					con = true;
+					if (check()) {
+						save();
+						con = true;
+					}
+					else {
+						endProgram() = false;
+						con = true;
+						std::cout << "------------------------------------------------\n";
+						std::cout << "Cancelling save and exit\n";
+						std::cout << "------------------------------------------------\n";
+						cin.get();
+					}
 					break;
 				}
 				case (2): {
@@ -185,6 +195,7 @@ void mainMenu() {
 				std::cout << "------------------------------------------------\n";
 				std::cout << "End of work\n";
 				std::cout << "------------------------------------------------\n";
+				cin.get();
 				break;
 			}
 		}

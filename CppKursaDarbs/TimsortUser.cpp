@@ -22,7 +22,7 @@ void insertionSortUsers(int type, int left, int right) {
 		switch (type) {
 		case (1): {
 			//name
-			while (users()[j].getName() > tmp.getName() && j >= left) {
+			while (j < users().size() && (users()[j].getName() > tmp.getName() && j >= left)) {
 				users()[j + 1] = users()[j];
 				j--;
 			}
@@ -30,7 +30,7 @@ void insertionSortUsers(int type, int left, int right) {
 		}
 		case (2): {
 			//surname
-			while (users()[j].getSurname() > tmp.getSurname() && j >= left) {
+			while (j < users().size() && (users()[j].getSurname() > tmp.getSurname() && j >= left)) {
 				users()[j + 1] = users()[j];
 				j--;
 			}
@@ -38,7 +38,7 @@ void insertionSortUsers(int type, int left, int right) {
 		}
 		case (3): {
 			//nick
-			while (users()[j].getNick() > tmp.getNick() && j >= left) {
+			while (j < users().size() && (users()[j].getNick() > tmp.getNick() && j >= left)) {
 				users()[j + 1] = users()[j];
 				j--;
 			}
@@ -46,7 +46,7 @@ void insertionSortUsers(int type, int left, int right) {
 		}
 		case (4): {
 			//login
-			while (users()[j].getLogin() > tmp.getLogin() && j >= left) {
+			while (j < users().size() && (users()[j].getLogin() > tmp.getLogin() && j >= left)) {
 				users()[j + 1] = users()[j];
 				j--;
 			}
@@ -54,7 +54,7 @@ void insertionSortUsers(int type, int left, int right) {
 		}
 		case (5): {
 			//password
-			while (users()[j].getPassword() > tmp.getPassword() && j >= left) {
+			while (j < users().size() && (users()[j].getPassword() > tmp.getPassword() && j >= left)) {
 				users()[j + 1] = users()[j];
 				j--;
 			}
@@ -62,7 +62,7 @@ void insertionSortUsers(int type, int left, int right) {
 		}
 		case (6): {
 			//dateOfReg
-			while (users()[j].getDateOfReg() > tmp.getDateOfReg() && j >= left) {
+			while (j < users().size() && (users()[j].getDateOfReg() > tmp.getDateOfReg() && j >= left)) {
 				users()[j + 1] = users()[j];
 				j--;
 			}
@@ -193,7 +193,7 @@ void mergeUsers(int type, int l, int m, int r) {
 void timSortUsers(int type, int n) {
 	// Sort individual subarrays of size RUN 
 	for (int i = 0; i < n; i += RUN_u)
-		insertionSortUsers(type, i, min((i + 31), (n - 1)));
+		insertionSortUsers(type, i, min((i + 3), (n - 1)));
 
 	// start merging from size RUN (or 32). It will merge 
 	// to form size 64, then 128, 256 and so on .... 

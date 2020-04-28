@@ -3,7 +3,7 @@
 #include <vector>
 
 using namespace std;
-const int RUN_u = 32;
+const int RUN_u = 4;
 
 void insertionSortUsers(int type, int left, int right);
 void mergeUsers(int type, int l, int m, int r);

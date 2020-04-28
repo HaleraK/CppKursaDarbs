@@ -14,6 +14,7 @@
 
 #include "User.h"
 #include "Drawing.h"
+#include "CheckForMistakes.h"
 
 //Файлы будут храниться в папках
 //	data/Drawings - файлы по типу drawing.d
@@ -62,15 +63,30 @@ void saveLoad() {
 			break;
 		}
 		case (1): {
-			save();
+			if (check()) {
+				save();
+			}
+			else {
+				std::cout << "------------------------------------------------\n";
+				std::cout << "Cancelling save\n";
+				std::cout << "------------------------------------------------\n";
+			}
+
 			break;
 		}
 		case (2): {
-			load();
+			if (check()) {
+				save();
+				load();
+			}
+			else {
+				std::cout << "------------------------------------------------\n";
+				std::cout << "Cancelling save and load\n";
+				std::cout << "------------------------------------------------\n";
+			}
 			break;
 		}
 		case (3): {
-			save();
 			load();
 			break;
 		}

@@ -7,14 +7,10 @@
 using std::string;
 using std::vector;
 
-void check();
+bool check();
 
-void checkNicks();
-void checkDrawingsId();
+bool checkNicks();
+bool checkLogins();
+bool checkDrawingsIds();
 
-void checkNameAndSurname();
-void checkTags();
-
-void checkOneWord();
-
-void checkNicksAndDrawingsId();
+bool isInArrayElem(vector<int> array, int el);
